@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: podread
+    runtime: node
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AUTH_SECRET
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: NEXTAUTH_URL
+        sync: false

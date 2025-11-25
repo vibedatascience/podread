@@ -1,0 +1,164 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: hsl(0 0% 100%);
+  --color-foreground: hsl(0 0% 10%);
+  --color-accent: hsl(358 91% 47%);
+  /* Economist Red */
+  --color-border: hsl(0 0% 85%);
+  --color-muted: hsl(0 0% 40%);
+
+  --font-serif: var(--font-crimson), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-serif;
+    font-size: 16px;
+    /* Slightly smaller than typical 16px web standard, but legible */
+    line-height: 1.4;
+    /* Tighter line height */
+    letter-spacing: -0.01em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  /* Economist-style lines */
+  hr {
+    @apply border-t-2 border-black my-6;
+  }
+
+  /* Compact prose styling */
+  .prose {
+    --tw-prose-body: theme('colors.gray.900');
+    --tw-prose-headings: theme('colors.gray.900');
+    --tw-prose-links: theme('colors.accent');
+    --tw-prose-bold: theme('colors.gray.900');
+    font-size: 16px;
+    /* 16px for reading body */
+    line-height: 1.5;
+  }
+
+  /* First paragraph drop-cap simulation if needed, or handled in component */
+
+  .prose h1 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose h2 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: hsl(0 0% 10%);
+    /* Darker for subheadings */
+    font-weight: 700;
+  }
+
+  .prose h3 {
+    font-size: 1.1rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.4rem;
+    color: hsl(0 0% 15%);
+    /* Slightly lighter than h2 */
+    font-weight: 700;
+  }
+
+  .prose p {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose ul,
+  .prose ol {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose ul {
+    list-style-type: square;
+  }
+
+  .prose li::marker {
+    color: hsl(var(--color-accent));
+  }
+
+  .prose li {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .prose blockquote {
+    border-left: 4px solid hsl(var(--color-accent));
+    padding-left: 1rem;
+    font-style: italic;
+    margin: 1.5rem 0;
+    color: hsl(0 0% 20%);
+    /* Darker gray for quotes */
+    font-size: 1.05em;
+    font-family: var(--font-serif);
+  }
+
+  .prose blockquote p {
+    color: hsl(0 0% 35%);
+    /* Ensure quote paragraphs are also muted */
+  }
+
+  /* Strong text within blockquotes */
+  .prose blockquote strong {
+    color: hsl(0 0% 20%);
+    /* Darker for emphasis in quotes */
+    font-weight: 700;
+  }
+
+  /* Table styling */
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9em;
+  }
+
+  .prose thead {
+    border-bottom: 2px solid hsl(var(--color-border));
+  }
+
+  .prose th {
+    text-align: left;
+    font-weight: 700;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid hsl(var(--color-border));
+    background-color: hsl(0 0% 98%);
+  }
+
+  .prose td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid hsl(var(--color-border));
+  }
+
+  .prose tbody tr:hover {
+    background-color: hsl(0 0% 98%);
+  }
+
+  .prose tbody tr:last-child td {
+    border-bottom: none;
+  }
+}
