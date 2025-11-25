@@ -1,8 +1,11 @@
 import Link from 'next/link';
 import Header from '@/app/components/Header';
-import { signIn } from "@/auth";
+import SubscribeButton from '@/components/SubscribeButton';
+import ManageSubscriptionButton from '@/components/ManageSubscriptionButton';
+import { auth } from '@/auth';
 
-export default function SubscribePage() {
+export default async function SubscribePage() {
+    const session = await auth();
     return (
         <main className="min-h-screen bg-white border-t-4 border-accent">
             <Header />
@@ -58,27 +61,24 @@ export default function SubscribePage() {
                             </ul>
 
                             {/* CTA Button */}
-                            <form
-                                action={async () => {
-                                    "use server"
-                                    await signIn("google", { callbackUrl: "/" })
-                                }}
-                            >
-                                <button type="submit" className="w-full bg-accent text-white font-sans font-bold text-xs uppercase tracking-widest py-4 px-6 hover:bg-red-700 transition-colors mb-3">
-                                    Subscribe Now
-                                </button>
-                            </form>
+                            <SubscribeButton className="w-full bg-accent text-white font-sans font-bold text-xs uppercase tracking-widest py-4 px-6 hover:bg-red-700 transition-colors mb-3 disabled:opacity-50">
+                                Subscribe Now
+                            </SubscribeButton>
                             <p className="text-center text-xs font-sans text-gray-500">
-                                Secure payment • Cancel anytime
+                                Secure payment via Stripe • Cancel anytime
                             </p>
                         </div>
                     </div>
 
                     {/* Already subscribed link */}
                     <div className="text-center mt-6">
-                        <Link href="/api/auth/signin" className="text-sm font-sans text-gray-600 hover:text-accent underline">
-                            Already a subscriber? Sign in
-                        </Link>
+                        {session ? (
+                            <ManageSubscriptionButton />
+                        ) : (
+                            <Link href="/api/auth/signin" className="text-sm font-sans text-gray-600 hover:text-accent underline">
+                                Already a subscriber? Sign in
+                            </Link>
+                        )}
                     </div>
                 </div>
 
@@ -136,16 +136,9 @@ export default function SubscribePage() {
                     <p className="font-serif text-gray-600 mb-6">
                         Join readers who save hours every week
                     </p>
-                    <form
-                        action={async () => {
-                            "use server"
-                            await signIn("google", { callbackUrl: "/" })
-                        }}
-                    >
-                        <button type="submit" className="bg-accent text-white font-sans font-bold text-xs uppercase tracking-widest py-4 px-8 hover:bg-red-700 transition-colors">
-                            Get Started Today
-                        </button>
-                    </form>
+                    <SubscribeButton className="bg-accent text-white font-sans font-bold text-xs uppercase tracking-widest py-4 px-8 hover:bg-red-700 transition-colors disabled:opacity-50">
+                        Get Started Today
+                    </SubscribeButton>
                 </div>
             </div>
         </main>
